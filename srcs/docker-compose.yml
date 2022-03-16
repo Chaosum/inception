@@ -16,5 +16,13 @@ services:
       - .env
     networks:
       - my_network
+  nginx:
+    build:
+      context: ./requirements/nginx
+    restart: unless-stopped
+    env_file:
+      - .env
+    networks:
+      - my_network
 networks:
   my_network: {}
