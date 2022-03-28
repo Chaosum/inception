@@ -15,4 +15,4 @@ service mysql stop
 
 fi
 
-sh /usr/bin/mysqld_safe
+sh /usr/bin/mysqld_safe 

@@ -3,6 +3,8 @@ services:
   mariadb:
     build:
       context: ./requirements/mariadb
+    volumes:
+      - /requirements/mariadb/tools:/var/lib/mysql
     restart: unless-stopped
     env_file:
       - .env
@@ -11,7 +13,11 @@ services:
   wordpress:
     build:
       context: ./requirements/wordpress
+    volumes:
+      - /requirements/wordpress/tools:/var/www/html
     restart: unless-stopped
+    depends_on:
+      - mariadb
     env_file:
       - .env
     networks:
@@ -19,6 +25,11 @@ services:
   nginx:
     build:
       context: ./requirements/nginx
+    volumes:
+      - ./requirements/nginx/tools:/etc/nginx/conf.d
+      - /requirements/wordpress/tools:/var/www/html
+    ports:
+      - 8080:80
     restart: unless-stopped
     env_file:
       - .env
