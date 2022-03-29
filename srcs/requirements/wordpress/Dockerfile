@@ -1,11 +1,13 @@
 FROM debian:buster
 
-EXPOSE 9000
-
-ARG USER_NAME
-ARG USER_PASSWORD
 
 RUN apt-get update
-RUN apt get install php8 php8-fpm php8-mysqli bash
+RUN apt-get install bash -y
+RUN apt-get install curl -y
+RUN apt-get install php-fpm -y
 
-CMD ["bash", "/clsaad_container_data/start.sh"]
+COPY ./tools/install.sh /install.sh
+
+RUN bash /install.sh
+
+CMD bash

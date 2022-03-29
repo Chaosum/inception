@@ -1,39 +1,48 @@
 version: "3.4"
 services:
   mariadb:
+    container_name: mariadb
     build:
       context: ./requirements/mariadb
-    volumes:
-      - /requirements/mariadb/tools:/var/lib/mysql
-    restart: unless-stopped
+    # volumes:
+    #   - /requirements/mariadb/tools:/var/lib/mysql
+    restart: on-failure
     env_file:
       - .env
     networks:
       - my_network
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
   wordpress:
+    container_name: wordpress
     build:
       context: ./requirements/wordpress
-    volumes:
-      - /requirements/wordpress/tools:/var/www/html
-    restart: unless-stopped
+    # volumes:
+      # - /requirements/wordpress/tools:/var/www/html
+    restart: on-failure
     depends_on:
       - mariadb
     env_file:
       - .env
     networks:
       - my_network
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
   nginx:
+    container_name: nginx
     build:
       context: ./requirements/nginx
-    volumes:
-      - ./requirements/nginx/tools:/etc/nginx/conf.d
-      - /requirements/wordpress/tools:/var/www/html
+    # volumes:
+    #   - ./requirements/nginx/tools:/etc/nginx/conf.d
+    #   - /requirements/wordpress/tools:/var/www/html
     ports:
-      - 8080:80
-    restart: unless-stopped
+      - 443:443
+    restart: on-failure
     env_file:
       - .env
     networks:
       - my_network
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
 networks:
   my_network: {}

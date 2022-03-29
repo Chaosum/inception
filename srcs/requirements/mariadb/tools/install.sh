@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[! -d /var/lib/mysql/my_database]]; then
+if [[ ! -d /var/lib/mysql/my_database ]]; then
 
 service mysql start
 
@@ -15,4 +15,4 @@ service mysql stop
 
 fi
 
-sh /usr/bin/mysqld_safe 
+sh /usr/bin/mysqld_safe
