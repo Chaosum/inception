@@ -4,7 +4,7 @@ if [[ ! -d /var/lib/mysql/my_database ]]; then
 
 service mysql start
 
-mysql -u root -e	"CREATE DATABASE my_database ;
+mysql -u root -e	"CREATE DATABASE $DB_NAME ;
 					CREATE USER '$USER' @ '%' IDENTIFIED BY '$USER_MDP' ;
 					GRANT ALL PRIVILEGES ON *.* TO '$USER' @ '%' ;
 					FLUSH PRIVILEGES ;
@@ -15,4 +15,4 @@ service mysql stop
 
 fi
 
-sh /usr/bin/mysqld_safe
+exec sh /usr/bin/mysqld_safe

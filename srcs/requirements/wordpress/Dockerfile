@@ -4,10 +4,8 @@ FROM debian:buster
 RUN apt-get update
 RUN apt-get install bash -y
 RUN apt-get install curl -y
-RUN apt-get install php-fpm -y
+RUN apt-get install php php-fpm php-mysqli -y
 
 COPY ./tools/install.sh /install.sh
 
-RUN bash /install.sh
-
-CMD bash
+CMD [ "bash", "/install.sh"]
