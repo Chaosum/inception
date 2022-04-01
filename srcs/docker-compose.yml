@@ -33,7 +33,6 @@ services:
     build:
       context: ./requirements/nginx
     volumes:
-      - ./data/nginx:/etc/nginx/conf.d
       - /data/html:/var/www/html
     ports:
       - 443:443
