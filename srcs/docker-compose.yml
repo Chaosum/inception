@@ -4,8 +4,8 @@ services:
     container_name: mariadb
     build:
       context: ./requirements/mariadb
-    # volumes:
-    #   - /requirements/mariadb/tools:/var/lib/mysql
+    volumes:
+      - /data/mysql:/var/lib/mysql
     restart: on-failure
     env_file:
       - .env
@@ -17,8 +17,8 @@ services:
     container_name: wordpress
     build:
       context: ./requirements/wordpress
-    # volumes:
-      # - /requirements/wordpress/tools:/var/www/html
+    volumes:
+      - /data/html:/var/www/html
     restart: on-failure
     depends_on:
       - mariadb
@@ -32,9 +32,9 @@ services:
     container_name: nginx
     build:
       context: ./requirements/nginx
-    # volumes:
-    #   - ./requirements/nginx/tools:/etc/nginx/conf.d
-    #   - /requirements/wordpress/tools:/var/www/html
+    volumes:
+      - ./data/nginx:/etc/nginx/conf.d
+      - /data/html:/var/www/html
     ports:
       - 443:443
     restart: on-failure

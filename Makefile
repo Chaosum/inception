@@ -4,6 +4,9 @@ all:	start
 	docker exec -it $@ bash
 
 start:
+	mkdir -p /data/mysql
+	mkdir -p /data/html
+	mkdir -p /data/nginx
 	cd ./srcs/ && docker-compose up --build
 
 stop:

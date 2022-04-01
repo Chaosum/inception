@@ -8,4 +8,6 @@ RUN apt-get install php php-fpm php-mysqli -y
 
 COPY ./tools/install.sh /install.sh
 
+EXPOSE 9000
+
 CMD [ "bash", "/install.sh"]
