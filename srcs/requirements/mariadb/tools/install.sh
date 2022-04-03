@@ -2,15 +2,15 @@
 
 if [[ ! -d /var/lib/mysql/my_database ]]; then
 
-service mysql start
+	mysql_install_db --ldata=/var/lib/mysql --user=mysql
 
-mysql -u root -e	"CREATE DATABASE $DB_NAME ;
+	service mysql start
+	mysql -u root -e	"CREATE DATABASE $DB_NAME ;
 					CREATE USER '$USER'@'%' IDENTIFIED BY '$USER_MDP' ;
 					GRANT ALL PRIVILEGES ON *.* TO '$USER'@'%' ;
 					FLUSH PRIVILEGES ;
 					"
-mysqladmin -u root password "$ROOT_MDP"
-
+	mysqladmin -u root password "$ROOT_MDP"
 fi
 
 exec sh /usr/bin/mysqld_safe

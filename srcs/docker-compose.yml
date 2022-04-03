@@ -40,6 +40,8 @@ services:
     ports:
       - 443:443
     restart: on-failure
+    depends_on:
+      - wordpress
     env_file:
       - .env
     networks:

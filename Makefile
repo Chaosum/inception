@@ -11,14 +11,16 @@ start:
 stop:
 	cd ./srcs/ && docker-compose down
 
+cache:
+	docker system prune -af
+
 clean:	stop
 	@echo "dockers cleaned"
 
-fclean:	clean
+fclean:	clean cache
+		rm -rf /data/mysql /data/html
 
 re:		fclean start
 
-cache:
-	docker system prune -af
 
 .PHONY:	start stop clean fclean re all cache
