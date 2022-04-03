@@ -11,8 +11,6 @@ mysql -u root -e	"CREATE DATABASE $DB_NAME ;
 					"
 mysqladmin -u root password "$ROOT_MDP"
 
-service mysql stop
-
 fi
 
 exec sh /usr/bin/mysqld_safe

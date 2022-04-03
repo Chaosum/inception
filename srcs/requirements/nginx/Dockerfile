@@ -2,7 +2,9 @@ FROM debian:buster
 
 RUN apt-get update -y
 RUN apt-get upgrade -y
-RUN apt-get install nginx bash openssl -y
+RUN apt-get install nginx bash openssl -y \
+&& apt-get clean \
+&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN mkdir -p /etc/nginx/ssl
 RUN mkdir -p /var/www/html

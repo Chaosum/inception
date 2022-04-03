@@ -1,11 +1,7 @@
-FROM debian:buster
+FROM alpine:3.14.3
 
-
-RUN apt-get update -y
-RUN apt-get install bash -y
-RUN apt-get install curl -y
-RUN apt-get install default-mysql-client -y
-RUN apt-get install php php-fpm -y
+RUN apk update && apk upgrade
+RUN apk add --update php7 php7-fpm bash curl mysql-client mysql
 
 COPY ./tools/install.sh /install.sh
 
