@@ -6,47 +6,47 @@ services:
       context: ./requirements/mariadb
     image: mariadb
     volumes:
-      - /data/mysql:/var/lib/mysql
-    restart: on-failure
+      - /home/mservage/data/mysql:/var/lib/mysql
+    restart: unless-stopped
     env_file:
       - .env
     networks:
       - my_network
-    stdin_open: true # docker run -i
-    tty: true        # docker run -t
+    # stdin_open: true # docker run -i
+    # tty: true        # docker run -t
   wordpress:
     container_name: wordpress
     build:
       context: ./requirements/wordpress
     image: wordpress
     volumes:
-      - /data/html:/var/www/html
-    restart: on-failure
+      - /home/mservage/data/html:/var/www/html
+    restart: unless-stopped
     depends_on:
       - mariadb
     env_file:
       - .env
     networks:
       - my_network
-    stdin_open: true # docker run -i
-    tty: true        # docker run -t
+    # stdin_open: true # docker run -i
+    # tty: true        # docker run -t
   nginx:
     container_name: nginx
     build:
       context: ./requirements/nginx
     image: nginx
     volumes:
-      - /data/html:/var/www/html
+      - /home/mservage/data/html:/var/www/html
     ports:
       - 443:443
-    restart: on-failure
+    restart: unless-stopped
     depends_on:
       - wordpress
     env_file:
       - .env
     networks:
       - my_network
-    stdin_open: true # docker run -i
-    tty: true        # docker run -t
+    # stdin_open: true # docker run -i
+    # tty: true        # docker run -t
 networks:
   my_network: {}

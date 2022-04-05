@@ -12,6 +12,6 @@ wp config create --allow-root --locale=fr_FR --dbname=$DB_NAME --dbuser=$USER --
 
 wp core install --allow-root --url="https://mservage.42.fr/" --title="Inception" --admin_user=$ROOT --admin_password=$ROOT_MDP --admin_email="admin@mail.mail" --path=$DB_PATH
 
-wp user create --allow-root "$USER" "admin@mail.mail" --user_pass=$USER_MDP --role=editor --path=$DB_PATH
+wp user create --allow-root "$USER" "titouan@mail.mail" --user_pass=$USER_MDP --role=editor --path=$DB_PATH
 
 exec /usr/sbin/php-fpm7 -F -R
