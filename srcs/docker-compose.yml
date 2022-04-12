@@ -6,7 +6,7 @@ services:
       context: ./requirements/mariadb
     image: mariadb
     volumes:
-      - /home/mservage/data/mysql:/var/lib/mysql
+      - mysql:/var/lib/mysql
     restart: unless-stopped
     env_file:
       - .env
@@ -20,7 +20,7 @@ services:
       context: ./requirements/wordpress
     image: wordpress
     volumes:
-      - /home/mservage/data/html:/var/www/html
+      - html:/var/www/html
     restart: unless-stopped
     depends_on:
       - mariadb
@@ -36,7 +36,7 @@ services:
       context: ./requirements/nginx
     image: nginx
     volumes:
-      - /home/mservage/data/html:/var/www/html
+      - html:/var/www/html
     ports:
       - 443:443
     restart: unless-stopped
@@ -48,5 +48,18 @@ services:
       - my_network
     # stdin_open: true # docker run -i
     # tty: true        # docker run -t
+volumes:
+  mysql:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/mservage/data/mysql
+  html:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/mservage/data/html
 networks:
   my_network: {}
